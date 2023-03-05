@@ -1,40 +1,27 @@
-string Solution::longestPalindrome(string A)
-{
-    string s=A;
-    int n=s.size();
-    if(n<2) return s;
-    int maxLen=1, start=0;
-    int low,high;
-    for(int i=0;i<n;i++)
-    {
-
-            low=i-1;
-
-            high=i+1;
-
-        
-
-            while(high<n && s[high]==s[i]) high++;
-
-            while(low>=0 && s[low]==s[i]) low--;
-
+class Solution:
+    def longestPalindrome(self, S: str) -> str:
+        start=0
+        maxLen=1
+        for i in range(1,len(S)):
+            #even
+            l=i-1 
+            r=i   
+            print(l,r)
+            while l>=0 and r<len(S) and S[l]==S[r]:
+                if r-l+1>maxLen:
+                    maxLen=r-l+1
+                    start=l
+                l-=1
+                r+=1
+            #odd    
+            l=i-1
+            r=i+1
+            while l>=0 and r<len(S) and S[l]==S[r]:
+                if r-l+1>maxLen:
+                    maxLen=r-l+1
+                    start=l
+                l-=1
+                r+=1    
+                
             
-
-            while(low>=0 && high<n && s[low]==s[high]){ high++; low--;}
-
-            
-
-            int len=high-low-1;
-
-            if(maxLen < len){
-
-                maxLen=len;
-
-                start=low+1;
-
-            }
-
-        }
-
-        return s.substr(start,maxLen);
-}
+        return S[start:start+maxLen]       
